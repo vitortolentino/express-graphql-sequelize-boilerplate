@@ -8,7 +8,6 @@ import Query from './querys';
 import Mutation from './mutations';
 // types
 import {testTypes} from './resources/test/test.schema';
-
 // const resolvers = merge(
 //     test
 // );

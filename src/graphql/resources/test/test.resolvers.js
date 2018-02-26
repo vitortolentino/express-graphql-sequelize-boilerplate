@@ -10,5 +10,11 @@ const books = [
 ];
 
 export const resolvers = {
-  Query: { books: () => books },
+  Query: { 
+    books: () => books 
+  },
+
+  Mutation: {
+    createBook: (book, args, context, info) => books.push(book)
+  }
 };
