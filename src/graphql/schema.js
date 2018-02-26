@@ -1,22 +1,21 @@
-import {
-    makeExecutableSchema,
-    addMockFunctionsToSchema,
-    mergeSchemas,
-} from 'graphql-tools';
+import { makeExecutableSchema } from 'graphql-tools';
+import { merge } from 'lodash';
 // querys and mutations
 import Query from './querys';
-import Mutation from './mutations';
+import {Mutation} from './mutations';
 // types
 import {testTypes} from './resources/test/test.schema';
-// const resolvers = merge(
-//     test
-// );
-  
+// resolvers
+import { testResolvers } from './resources/test/test.resolvers'
+
+const resolvers = merge(
+    testResolvers
+);
 
 const schemaDefinition = `
     type Schema {
         query: Query
-        mutatuin: Mutation
+        mutation: Mutation
     }
 `;
 
@@ -27,5 +26,6 @@ export default makeExecutableSchema({
         Query,
         Mutation,
         testTypes
-    ]
+    ],
+    resolvers
 });

@@ -1,7 +1,11 @@
 import { testMutations }  from './resources/test/test.schema'
 
-export const Mutation = `
+const Mutation = `
     type Mutation {
         ${testMutations}
     }
 `;
+
+export {
+    Mutation
+}

@@ -1,10 +1,10 @@
 const testTypes = `
     type Book { 
-        title: String, 
+        title: String
         author: String 
     }
     input BookCreateInput {
-        name: String!
+        title: String!
         author: String!
     }
     type Root {
@@ -18,7 +18,7 @@ const testQuerys = `
 `;
 
 const testMutations = `
-    createBook(input: BookCreateInput!): User
+    createBook(input: BookCreateInput!): Book
 `;
 
 export {
