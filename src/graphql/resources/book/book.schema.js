@@ -1,5 +1,6 @@
 const bookTypes = `
     type Book { 
+        id: ID!
         title: String
         author: String 
     }
@@ -7,18 +8,17 @@ const bookTypes = `
         title: String!
         author: String!
     }
-    type Root {
-        book: Book 
-    }
 `;
 
 const bookQuerys = `
-    books: [Book]
-    root: Root
+    book(id: ID!): Book!
+    books: [Book!]!
 `;
 
 const bookMutations = `
     createBook(input: BookCreateInput!): Book
+    updateBook(id: ID!, input: BookCreateInput): Boolean
+    deleteBook(id: ID!): Boolean
 `;
 
 export {
