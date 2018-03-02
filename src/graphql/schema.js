@@ -4,12 +4,12 @@ import { merge } from 'lodash';
 import Query from './querys';
 import {Mutation} from './mutations';
 // types
-import {testTypes} from './resources/test/test.schema';
+import {bookTypes} from './resources/book/book.schema';
 // resolvers
-import { testResolvers } from './resources/test/test.resolvers'
+import { bookResolvers } from './resources/book/book.resolvers'
 
 const resolvers = merge(
-    testResolvers
+    bookResolvers
 );
 
 const schemaDefinition = `
@@ -25,7 +25,7 @@ export default makeExecutableSchema({
         schemaDefinition,
         Query,
         Mutation,
-        testTypes
+        bookTypes
     ],
     resolvers
 });

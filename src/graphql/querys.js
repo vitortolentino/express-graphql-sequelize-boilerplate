@@ -1,7 +1,7 @@
-import { testQuerys } from './resources/test/test.schema';
+import { bookQuerys } from './resources/book/book.schema';
 
 export default `
     type Query {
-        ${testQuerys}
+        ${bookQuerys}
     }
 `;

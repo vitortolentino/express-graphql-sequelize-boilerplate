@@ -2,7 +2,7 @@
     "development": {
       "username": "root",
       "password": "root",
-      "database": "graphql_sequelize_development",
+      "database": "example",
       "host": "127.0.0.1",
       "dialect": "mysql"
     },

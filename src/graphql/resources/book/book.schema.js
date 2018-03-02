@@ -1,4 +1,4 @@
-const testTypes = `
+const bookTypes = `
     type Book { 
         title: String
         author: String 
@@ -12,17 +12,17 @@ const testTypes = `
     }
 `;
 
-const testQuerys = `
+const bookQuerys = `
     books: [Book]
     root: Root
 `;
 
-const testMutations = `
+const bookMutations = `
     createBook(input: BookCreateInput!): Book
 `;
 
 export {
-    testTypes,
-    testQuerys,
-    testMutations
+    bookTypes,
+    bookQuerys,
+    bookMutations
 }

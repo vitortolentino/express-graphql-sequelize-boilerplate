@@ -1,8 +1,8 @@
-import { testMutations }  from './resources/test/test.schema'
+import { bookMutations }  from './resources/book/book.schema'
 
 const Mutation = `
     type Mutation {
-        ${testMutations}
+        ${bookMutations}
     }
 `;
 

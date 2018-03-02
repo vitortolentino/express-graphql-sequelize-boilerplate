@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js --exec babel-node --presets es2015,stage-2",
-    "teste": "nodemon teste.js --exec babel-node --presets es2015,stage-2"
+    "start": "nodemon ./src/index.js --exec babel-node --presets es2015,stage-2"
   },
   "repository": {
     "type": "git",
@@ -24,7 +23,8 @@
     "graphql": "^0.13.1",
     "graphql-tools": "^2.21.0",
     "lodash": "^4.17.5",
-    "sequelize": "^4.34.1"
+    "mysql2": "^1.5.2",
+    "sequelize": "^4.35.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
