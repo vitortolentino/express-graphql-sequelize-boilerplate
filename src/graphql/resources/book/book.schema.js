@@ -17,7 +17,7 @@ const bookQuerys = `
 
 const bookMutations = `
     createBook(input: BookCreateInput!): Book
-    updateBook(id: ID!, input: BookCreateInput): Boolean
+    updateBook(id: ID!, input: BookCreateInput): Book
     deleteBook(id: ID!): Boolean
 `;
 

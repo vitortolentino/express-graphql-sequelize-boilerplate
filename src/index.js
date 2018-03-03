@@ -4,21 +4,16 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
 import schema from './graphql/schema';
 import models from './models/index.js';
+import { normalizePort, handleError, onError, startApp } from './utils/utils';
 
 const app = express();
 
-const startApp = (port) => {
-	app.listen(port, () => {
-		console.log('Server is listening on port ' + port);
-	});
-}
-
 models.sequelize.sync()
 	.then(() => {
-		startApp(3000);
+		startApp(3000, app);
 	})
 	.catch((e) => {
-		throw new Error(e);
+		handleError(e);
 	});
 
 app.use('/graphql', bodyParser.json(),
