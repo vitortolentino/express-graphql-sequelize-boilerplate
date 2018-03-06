@@ -1,3 +1,5 @@
+import models from './index';
+
 module.exports = (sequelize, DataTypes) => {
     var Book = sequelize.define('book', {
         id: {
@@ -12,7 +14,17 @@ module.exports = (sequelize, DataTypes) => {
         author: {
             type: DataTypes.STRING
         }
+    }, {
+        tableName: 'books'
     });
+
+    // Book.associate = ({author}) => {
+    //     Book.belongsTo(author, {
+    //         foreignKey: {
+    //             allowNull: false
+    //         }
+    //     });
+    // }
 
     return Book;
 }

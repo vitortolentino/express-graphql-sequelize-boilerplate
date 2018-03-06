@@ -2,16 +2,16 @@ import { handleError }  from '../../../utils/utils.js'
 
 export const bookResolvers = {
 	Query: {
-		book: (book, {id}, {db} , info) => {
-			id = parseInt(id);
+		book: (parent, {id}, {db} , info) => {
+			id = parseInt(id);			
 			return db.book
-				.findById(id)
-				.catch(err => handleError(e));
+					.findById(id)
+					.catch(handleError);
 		},
 		books: (book, args, {db} , info) => {
 			return db.book
 				.findAll()
-				.catch(err => handleError(e));
+				.catch(handleError);
 		}
 	},
 
@@ -27,7 +27,7 @@ export const bookResolvers = {
 			const t = await db.sequelize.transaction();
 			const book = await db.book.findById(id);
                     
-			if(!book) throw new Error(`Livro com o id ${id} não encontrado!`);
+			if(!book) throw new Error(`Book with id ${id} not find!`);
 			try {
 				const result  = await book.update(input, {transaction: t}); 
 				t.commit();                   
@@ -35,7 +35,7 @@ export const bookResolvers = {
 			}
 			catch(e) {
 				t.roolback();
-				handleError(e);
+				handleError;
 			}            
 		},
 		deleteBook: async (parent, { id }, { db }, info) => {
@@ -43,7 +43,7 @@ export const bookResolvers = {
             const t = await db.sequelize.transaction();
 			const book = await db.book.findById(id);
 			
-			if(!book) throw new Error(`book com o id ${id} não encontrado!`);
+			if(!book) throw new Error(`Book with id ${id} not find!`);
 			try {
 				const result  = await book.destroy({transaction: t})
 				t.commit();                   
@@ -51,7 +51,7 @@ export const bookResolvers = {
 			}
 			catch(e) {
 				t.roolback();
-				handleError(e);
+				handleError;
 			}			
 		}
 	}

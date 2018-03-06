@@ -3,12 +3,12 @@ import bodyParser from 'body-parser';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
 import schema from './graphql/schema';
-import models from './models/index.js';
+import db from './models/index.js';
 import { normalizePort, handleError, onError, startApp } from './utils/utils';
 
 const app = express();
 
-models.sequelize.sync()
+db.sequelize.sync()
 	.then(() => {
 		startApp(3000, app);
 	})
@@ -19,7 +19,7 @@ models.sequelize.sync()
 app.use('/graphql', bodyParser.json(),
 	graphqlExpress({ 
 		schema,
-		context: { db: models}
+		context: { db: db }
 	})
 );
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
