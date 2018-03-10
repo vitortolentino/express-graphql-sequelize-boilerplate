@@ -1,15 +1,25 @@
 import { handleError }  from '../../../utils/utils.js'
 
 export const authorResolvers = {
+	Author: {
+		books: (author, {first, offset}, {db}, info) => {
+			console.log(db.Book);
+			return db.Book
+					.findAll({
+						where: {author: author.get('id')}
+					})
+					.catch(handleError);
+		}
+	},
 	Query: {
-		author: (_, {id}, {db} , info) => {
+		author: (parent, {id}, {db} , info) => {
 			id = parseInt(id);
-			return db.author
+			return db.Author
 						.findById(id)
 						.catch(handleError);
 		},
 		authors: (author, args, {db} , info) => {
-			return db.author
+			return db.Author
 				.findAll()
 				.catch(handleError);
 		}
@@ -18,14 +28,14 @@ export const authorResolvers = {
 	Mutation: {
 		createAuthor: (author, { input }, { db }, info) => {
 			return db.sequelize.transaction(t => {
-				return db.author
+				return db.Author
 					.create(input, { transaction: t });
 			})
 		},
 		updateAuthor: async (parent, { id, input }, { db }, info) => {
 			id = parseInt(id);
 			const t = await db.sequelize.transaction();
-			const author = await db.author.findById(id);
+			const author = await db.Author.findById(id);
                     
 			if(!author) throw new Error(`Author with id ${id} not find!`);
 			try {
@@ -41,7 +51,7 @@ export const authorResolvers = {
 		deleteAuthor: async (parent, { id }, { db }, info) => {
 			id = parseInt(id);
             const t = await db.sequelize.transaction();
-			const author = await db.author.findById(id);
+			const author = await db.Author.findById(id);
 			
 			if(!author) throw new Error(`Author with id ${id} not find!`);
 			try {

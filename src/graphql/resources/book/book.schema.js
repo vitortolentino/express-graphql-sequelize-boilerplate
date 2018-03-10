@@ -2,11 +2,11 @@ const bookTypes = `
     type Book { 
         id: ID!
         title: String
-        author: String 
+        author: Author!
     }
     input BookCreateInput {
         title: String!
-        author: String!
+        author: Int!
     }
 `;
 

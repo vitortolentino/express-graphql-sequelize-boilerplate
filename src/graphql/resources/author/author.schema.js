@@ -2,7 +2,8 @@ const authorTypes = `
     type Author { 
         id: ID!
         name: String
-        last_name: String 
+        last_name: String
+        books(first: Int, offset: Int): [Book!]!
     }
     input AuthorCreateInput {
         name: String!
