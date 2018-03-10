@@ -7,4 +7,4 @@ A boilerplate using NodeJs, Express, Sequelize and ApolloGraphQL.
 1. Clone the repository
 2. `npm install`
 3. `npm start`
-4. Visit `https://localhost:3000/graphiql`
+4. Visit `localhost:3000/graphiql`
