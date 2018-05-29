@@ -2,68 +2,79 @@ import { handleError }  from '../../../utils/utils.js'
 
 export const authorResolvers = {
 	Author: {
-		books: (author, {first, offset}, {db}, info) => {
-			console.log(db.Book);
-			return db.Book
-					.findAll({
-						where: {author: author.get('id')}
-					})
-					.catch(handleError);
+		books: async (author, {first = 0 , offset = 10}, {db}, info) => {		
+			try {
+				const book = await db.Book.findAll({
+					where: {author: author.get('id')}
+				});
+				return book;
+			} catch(err) {				
+				handleError(err);
+			}
 		}
 	},
 	Query: {
-		author: (parent, {id}, {db} , info) => {
+		author: async (parent, {id}, {db} , info) => {
 			id = parseInt(id);
-			return db.Author
-						.findById(id)
-						.catch(handleError);
+			try {
+				const author = await db.Author.findById(id);
+				return author;
+			} catch(err) {
+				handleError(err);
+			} 
 		},
-		authors: (author, args, {db} , info) => {
-			return db.Author
-				.findAll()
-				.catch(handleError);
+		authors: async (author, args, {db} , info) => {
+			try {
+				const authors = await db.Author.findAll();
+				return authors;
+			} catch(err) {
+				handleError(err);
+			} 
 		}
 	},
 
 	Mutation: {
-		createAuthor: (author, { input }, { db }, info) => {
-			return db.sequelize.transaction(t => {
-				return db.Author
-					.create(input, { transaction: t });
-			})
+		createAuthor: async (author, { input }, { db }, info) => {
+			const transaction = db.sequelize.transaction();
+			try {
+				const author = await db.Author.create(input, { transaction });
+				return author;
+			} catch(err) {
+				handleError(err);
+			}	
+			
 		},
 		updateAuthor: async (parent, { id, input }, { db }, info) => {
 			id = parseInt(id);
-			const t = await db.sequelize.transaction();
-			const author = await db.Author.findById(id);
+			const transaction 	= await db.sequelize.transaction();
+			const author 		= await db.Author.findById(id);
                     
 			if(!author) throw new Error(`Author with id ${id} not find!`);
 			try {
-				const result  = await author.update(input, {transaction: t}); 
-				t.commit();                   
+				const result  = await author.update(input, { transaction }); 
+				transaction.commit();                   
 				return result;
 			}
 			catch(err) {
-				t.roolback();
+				transaction.roolback();
 				handleError(err);
 			}            
 		},
 		deleteAuthor: async (parent, { id }, { db }, info) => {
 			id = parseInt(id);
-            const t = await db.sequelize.transaction();
-			const author = await db.Author.findById(id);
+            const transaction 	= await db.sequelize.transaction();
+			const author 		= await db.Author.findById(id);
 			
 			if(!author) throw new Error(`Author with id ${id} not find!`);
 			try {
-				const result  = await author.destroy({transaction: t})
-				t.commit();                   
+				const result  = await author.destroy({ transaction })
+				transaction.commit();                   
 				return result;
 			}
 			catch(err) {
-				t.roolback();
+				transaction.roolback();
 				handleError(err);
 			}			
 		}
 	}
 };
-

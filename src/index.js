@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
 import schema from './graphql/schema';
-import db from './models/index.js';
+import db from './models';
 import { normalizePort, handleError, onError, startApp } from './utils/utils';
 
 const app = express();
@@ -12,8 +12,8 @@ db.sequelize.sync()
 	.then(() => {
 		startApp(3000, app);
 	})
-	.catch((e) => {
-		handleError(e);
+	.catch((err) => {
+		handleError(err);
 	});
 
 app.use('/graphql', bodyParser.json(),

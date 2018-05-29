@@ -4,7 +4,7 @@ export const startApp = (port, app) => {
 	app.listen(port, () => {
 		console.log(`Server is listening on port ${port}. Go to localhost:${port}/graphiql`);
 	});
-	app.on('error', err => onError(err))
+	app.on('error', err => onError(err));
 }
 
 // function ensures that the port is valid
@@ -38,7 +38,6 @@ export const onError = (server) => {
 
 // handle errors
 export const handleError = (error) => {
-    let errorMessage = `${error.name}: ${error.message}`
-    console.log(errorMessage)
-    return Promise.reject(new Error(errorMessage))
+    let errorMessage = `${error.name}: ${error.message}`;
+    return Promise.reject(new Error(errorMessage));
 }
