@@ -39,5 +39,5 @@ export const onError = (server) => {
 // handle errors
 export const handleError = (error) => {
     let errorMessage = `${error.name}: ${error.message}`;
-    return Promise.reject(new Error(errorMessage));
+    return Promise.reject(new Error(errorMessage)).catch(err => err);
 }

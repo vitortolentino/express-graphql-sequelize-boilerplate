@@ -9,7 +9,7 @@ export const authorResolvers = {
 				});
 				return book;
 			} catch(err) {				
-				handleError(err);
+				console.log(handleError(err));
 			}
 		}
 	},
@@ -20,7 +20,7 @@ export const authorResolvers = {
 				const author = await db.Author.findById(id);
 				return author;
 			} catch(err) {
-				handleError(err);
+				console.log(handleError(err));
 			} 
 		},
 		authors: async (author, args, {db} , info) => {
@@ -28,7 +28,7 @@ export const authorResolvers = {
 				const authors = await db.Author.findAll();
 				return authors;
 			} catch(err) {
-				handleError(err);
+				console.log(handleError(err));
 			} 
 		}
 	},
@@ -40,7 +40,7 @@ export const authorResolvers = {
 				const author = await db.Author.create(input, { transaction });
 				return author;
 			} catch(err) {
-				handleError(err);
+				console.log(handleError(err));
 			}	
 			
 		},
@@ -57,7 +57,7 @@ export const authorResolvers = {
 			}
 			catch(err) {
 				transaction.roolback();
-				handleError(err);
+				console.log(handleError(err));
 			}            
 		},
 		deleteAuthor: async (parent, { id }, { db }, info) => {
@@ -73,7 +73,7 @@ export const authorResolvers = {
 			}
 			catch(err) {
 				transaction.roolback();
-				handleError(err);
+				console.log(handleError(err));
 			}			
 		}
 	}

@@ -5,7 +5,7 @@ export const bookResolvers = {
 		author: (book, args, {db}, info) => {
 			return db.Author
 						.findById(book.get('author'))
-						.catch(err => handleError(err));
+						.catch(err => console.log(handleError(err)));
 		}
 	},
 	Query: {
@@ -13,12 +13,12 @@ export const bookResolvers = {
 			id = parseInt(id);			
 			return db.Book
 					.findById(id)
-					.catch(err => handleError(err));
+					.catch(err => console.log(handleError(err)));
 		},
 		books: (book, args, {db} , info) => {
 			return db.Book
 				.findAll()
-				.catch(err => handleError(err));
+				.catch(err => console.log(handleError(err)));
 		}
 	},
 
@@ -42,7 +42,7 @@ export const bookResolvers = {
 			}
 			catch(err) {
 				transaction.roolback();
-				handleError(err);
+				console.log(handleError(err));
 			}            
 		},
 		deleteBook: async (parent, { id }, { db }, info) => {
@@ -58,7 +58,7 @@ export const bookResolvers = {
 			}
 			catch(err) {
 				transaction.roolback();
-				handleError(err);
+				console.log(handleError(err));
 			}			
 		}
 	}
