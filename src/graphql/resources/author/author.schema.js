@@ -13,7 +13,7 @@ const authorTypes = `
 
 const authorQuerys = `
     author(id: ID!): Author!
-    authors(first: Int!, limit: Int): [Author!]!
+    authors(first: Int, limit: Int): [Author!]!
 `;
 
 const authorMutations = `

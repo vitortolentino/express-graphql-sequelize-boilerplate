@@ -1,23 +1,33 @@
-import { handleError }  from '../../../utils/utils.js'
+import { handleError }  from '../../../utils/utils.js';
+import { getFields } from '../../../utils/GraphQl/graphQlUtils.js';
 
 export const bookResolvers = {
 	Book: {
 		author: (book, args, {db}, info) => {
+			let attributes = getFields(db.Author, info);
 			return db.Author
-						.findById(book.get('author'))
+						.findOne({ 
+							where: {id : book.get('author')},
+							attributes
+						})
 						.catch(err => handleError(err));
 		}
 	},
 	Query: {
 		book: (parent, {id}, {db} , info) => {
+			let attributes = getFields(db.Book, info);
 			id = parseInt(id);			
 			return db.Book
-					.findById(id)
+					.findOne({ 
+						where: {id : id},
+						attributes
+					})
 					.catch(err => handleError(err));
 		},
 		books: (book, {first = 0 , limit = 10}, {db} , info) => {
+			let attributes = getFields(db.Book, info);
 			return db.Book
-				.findAll({first, limit})
+				.findAll({first, limit, attributes})
 				.catch(err => handleError(err));
 		}
 	},

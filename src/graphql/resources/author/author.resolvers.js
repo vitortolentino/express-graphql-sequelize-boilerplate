@@ -1,17 +1,20 @@
-import { handleError }  from '../../../utils/utils.js'
+import { handleError }  from '../../../utils/utils.js';
+import { getFields } from '../../../utils/GraphQl/graphQlUtils.js';
 
 export const authorResolvers = {
 
 	Author: {
-		books: async (author, {first = 0 , limit = 10}, {db}, info) => {		
+		books: async (author, {first = 0 , limit = 10}, {db}, info) => {	
+			let attributes = getFields(db.Book, info);	
 			try {
 				const book = await db.Book.findAll({
 					where: {author: author.get('id')},
 					limit: limit,
-					offset: first
+					offset: first,
+					attributes
 				});
 				return book;
-			} catch(err) {				
+			} catch(err) {				l
 				handleError(err);
 			}
 		}
@@ -20,18 +23,24 @@ export const authorResolvers = {
 	Query: {
 		author: async (parent, {id}, {db} , info) => {
 			id = parseInt(id);
+			let attributes = getFields(db.Author, info);
 			try {
-				const author = await db.Author.findById(id);
+				const author = await db.Author.findOne({
+					where :{id : id},
+					attributes
+				});
 				return author;
 			} catch(err) {
 				handleError(err);
 			} 
 		},
 		authors: async (author, { first = 0, limit = 10 }, {db} , info) => {
+			let attributes = getFields(db.Author, info);			
 			try {
 				const authors = await db.Author.findAll({
 					limit: limit,
-					offset: first
+					offset: first,
+					attributes
 				});
 				return authors;
 			} catch(err) {
