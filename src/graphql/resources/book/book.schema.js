@@ -12,7 +12,7 @@ const bookTypes = `
 
 const bookQuerys = `
     book(id: ID!): Book!
-    books: [Book!]!
+    books(first: Int, limit: Int): [Book!]!
 `;
 
 const bookMutations = `

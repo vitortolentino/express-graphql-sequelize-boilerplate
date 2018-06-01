@@ -3,7 +3,7 @@ const authorTypes = `
         id: ID!
         name: String
         last_name: String
-        books(first: Int, offset: Int): [Book!]!
+        books(first: Int, limit: Int): [Book!]!
     }
     input AuthorCreateInput {
         name: String!
@@ -13,7 +13,7 @@ const authorTypes = `
 
 const authorQuerys = `
     author(id: ID!): Author!
-    authors: [Author!]!
+    authors(first: Int!, limit: Int): [Author!]!
 `;
 
 const authorMutations = `

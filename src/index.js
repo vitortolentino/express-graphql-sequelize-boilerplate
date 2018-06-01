@@ -13,7 +13,7 @@ db.sequelize.sync()
 		startApp(3000, app);
 	})
 	.catch((err) => {
-		console.log(handleError(err));
+		handleError(err);
 	});
 
 app.use('/graphql', bodyParser.json(),
