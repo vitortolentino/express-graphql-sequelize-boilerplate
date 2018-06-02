@@ -1,3 +1,5 @@
+'use strict';
+
 const bookTypes = `
     type Book { 
         id: ID!
@@ -12,7 +14,7 @@ const bookTypes = `
 
 const bookQuerys = `
     book(id: ID!): Book!
-    books(first: Int, limit: Int): [Book!]!
+    books(offset: Int, limit: Int): [Book!]!
 `;
 
 const bookMutations = `
@@ -25,4 +27,4 @@ export {
     bookTypes,
     bookQuerys,
     bookMutations
-}
+};

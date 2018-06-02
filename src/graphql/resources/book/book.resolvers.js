@@ -1,7 +1,9 @@
-import { handleError }  from '../../../utils/utils.js';
-import { getFields } from '../../../utils/GraphQl/graphQlUtils.js';
+'use strict';
+import { handleError }  from '../../../utils/utils';
+import { getFields } from "../../../utils/graphqlHelpers";
 
 export const bookResolvers = {
+	
 	Book: {
 		author: (book, args, {db}, info) => {
 			let attributes = getFields(db.Author, info);
@@ -13,6 +15,7 @@ export const bookResolvers = {
 						.catch(err => handleError(err));
 		}
 	},
+
 	Query: {
 		book: (parent, {id}, {db} , info) => {
 			let attributes = getFields(db.Book, info);
@@ -24,10 +27,10 @@ export const bookResolvers = {
 					})
 					.catch(err => handleError(err));
 		},
-		books: (book, {first = 0 , limit = 10}, {db} , info) => {
+		books: (book, { offset = 0 , limit = 10 }, {db} , info) => {
 			let attributes = getFields(db.Book, info);
 			return db.Book
-				.findAll({first, limit, attributes})
+				.findAll({offset, limit, attributes})
 				.catch(err => handleError(err));
 		}
 	},

@@ -1,9 +1,11 @@
+'use strict';
+
 const authorTypes = `
     type Author { 
         id: ID!
         name: String
         last_name: String
-        books(first: Int, limit: Int): [Book!]!
+        books(offset: Int, limit: Int): [Book!]!
     }
     input AuthorCreateInput {
         name: String!
@@ -13,7 +15,7 @@ const authorTypes = `
 
 const authorQuerys = `
     author(id: ID!): Author!
-    authors(first: Int, limit: Int): [Author!]!
+    authors(offset: Int, limit: Int): [Author!]!
 `;
 
 const authorMutations = `
@@ -26,4 +28,4 @@ export {
     authorTypes,
     authorQuerys,
     authorMutations
-}
+};

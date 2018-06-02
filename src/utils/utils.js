@@ -1,3 +1,5 @@
+'use strict';
+
 // Starting app
 export const startApp = (port, app) => {
 	port = normalizePort(port);

@@ -1,16 +1,17 @@
-import { handleError }  from '../../../utils/utils.js';
-import { getFields } from '../../../utils/GraphQl/graphQlUtils.js';
+'use strict';
+import { handleError }  from '../../../utils/utils';
+import { getFields } from '../../../utils/graphqlHelpers';
 
 export const authorResolvers = {
 
 	Author: {
-		books: async (author, {first = 0 , limit = 10}, {db}, info) => {	
+		books: async (author, { offset = 0 , limit = 10 }, {db}, info) => {	
 			let attributes = getFields(db.Book, info);	
 			try {
 				const book = await db.Book.findAll({
 					where: {author: author.get('id')},
-					limit: limit,
-					offset: first,
+					limit,
+					offset,
 					attributes
 				});
 				return book;
@@ -34,12 +35,12 @@ export const authorResolvers = {
 				handleError(err);
 			} 
 		},
-		authors: async (author, { first = 0, limit = 10 }, {db} , info) => {
+		authors: async (author, { offset = 0, limit = 10 }, {db} , info) => {
 			let attributes = getFields(db.Author, info);			
 			try {
 				const authors = await db.Author.findAll({
-					limit: limit,
-					offset: first,
+					limit,
+					offset,
 					attributes
 				});
 				return authors;
